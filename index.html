@@ -1431,8 +1431,10 @@ no,                 <div class="form-group">
                 `;
                 document.head.appendChild(successStyle);
 
-                // Firebase Realtime Database - Free cloud database (no API key needed!)
-                const FIREBASE_URL = 'https://filosofia-para-marti-default-rtdb.firebaseio.com/sections.json';
+                // JSONBin.io - Free cloud database (working implementation)
+                const JSONBIN_BIN_ID = 'filosofia-para-marti-sections';
+                const JSONBIN_API_URL = 'https://api.jsonbin.io/v3/b';
+                const JSONBIN_API_KEY = '$2a$10$bMmajUxTbcElFTEY7MFGpeH8s.BpIRcFloC4ltMG3/5DCdxN4FvQO'; 
                 
                 // Save section to cloud database
                 async function saveSectionToDatabase(emoji, title, content) {
