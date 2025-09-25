@@ -1431,9 +1431,8 @@ no,                 <div class="form-group">
                 `;
                 document.head.appendChild(successStyle);
 
-                // JSONBin.io - Free cloud database (no setup needed!)
-                const JSONBIN_BIN_ID = 'filosofia-para-marti-sections';
-                const JSONBIN_API_URL = 'https://api.jsonbin.io/v3/b';
+                // Firebase Realtime Database - Free cloud database (no API key needed!)
+                const FIREBASE_URL = 'https://filosofia-para-marti-default-rtdb.firebaseio.com/sections.json';
                 
                 // Save section to cloud database
                 async function saveSectionToDatabase(emoji, title, content) {
@@ -1453,23 +1452,21 @@ no,                 <div class="form-group">
                         
                         currentSections.push(newSection);
                         
-                        // Save to JSONBin.io
-                        const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}`, {
+                        // Save to Firebase
+                        const response = await fetch(FIREBASE_URL, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-Master-Key': '$2a$10$dummykey', // Free tier
                             },
-                            body: JSON.stringify({
-                                sections: currentSections
-                            })
+                            body: JSON.stringify(currentSections)
                         });
                         
                         if (response.ok) {
+                            console.log('Section saved to Firebase successfully!');
                             return true;
                         } else {
-                            // If bin doesn't exist, create it
-                            return await createNewBin(currentSections);
+                            console.log('Failed to save to Firebase, but saved locally');
+                            return false;
                         }
                     } catch (error) {
                         console.error('Error saving to database:', error);
@@ -1477,47 +1474,24 @@ no,                 <div class="form-group">
                     }
                 }
                 
-                // Create new bin if it doesn't exist
-                async function createNewBin(sections) {
-                    try {
-                        const response = await fetch(`${JSONBIN_API_URL}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-Master-Key': '$2a$10$dummykey',
-                            },
-                            body: JSON.stringify({
-                                sections: sections
-                            })
-                        });
-                        
-                        return response.ok;
-                    } catch (error) {
-                        console.error('Error creating new bin:', error);
-                        return false;
-                    }
-                }
                 
-                // Load sections from JSONBin.io with localStorage fallback
+                // Load sections from Firebase with localStorage fallback
                 async function loadSectionsFromDatabase() {
                     try {
-                        const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}/latest`, {
-                            headers: {
-                                'X-Master-Key': '$2a$10$dummykey',
-                            }
-                        });
+                        const response = await fetch(FIREBASE_URL);
                         
                         if (response.ok) {
-                            const data = await response.json();
-                            const sections = data.record.sections || [];
+                            const sections = await response.json();
                             
                             // Save to localStorage as backup
-                            localStorage.setItem('philosophyUserSections', JSON.stringify(sections));
+                            localStorage.setItem('philosophyUserSections', JSON.stringify(sections || []));
                             
-                            return sections;
+                            console.log('Loaded sections from Firebase:', (sections || []).length);
+                            return sections || [];
                         } else {
-                            // If bin doesn't exist, try localStorage
+                            // If Firebase doesn't exist, try localStorage
                             const localSections = localStorage.getItem('philosophyUserSections');
+                            console.log('Firebase not available, using localStorage:', localSections ? JSON.parse(localSections).length : 0);
                             return localSections ? JSON.parse(localSections) : [];
                         }
                     } catch (error) {
@@ -1528,7 +1502,7 @@ no,                 <div class="form-group">
                     }
                 }
                 
-                // Delete section from JSONBin.io
+                // Delete section from Firebase
                 async function deleteSectionFromDatabase(sectionId) {
                     try {
                         // Get current sections
@@ -1538,17 +1512,15 @@ no,                 <div class="form-group">
                         const updatedSections = currentSections.filter(section => section.id !== sectionId);
                         
                         // Save updated sections
-                        const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}`, {
+                        const response = await fetch(FIREBASE_URL, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
-                                'X-Master-Key': '$2a$10$dummykey',
                             },
-                            body: JSON.stringify({
-                                sections: updatedSections
-                            })
+                            body: JSON.stringify(updatedSections)
                         });
                         
+                        console.log('Section deleted from Firebase');
                         return response.ok;
                     } catch (error) {
                         console.error('Error deleting from database:', error);
