@@ -1150,14 +1150,6 @@
                 <span class="plus-icon">➕</span>
                 <span class="btn-text">Agregar Nueva Sección</span>
             </button>
-            <button id="downloadSectionsBtn" class="add-section-btn" style="background: linear-gradient(135deg, #4CAF50, #45a049); margin-left: 15px;">
-                <span class="plus-icon">💾</span>
-                <span class="btn-text">Descargar Secciones</span>
-            </button>
-            <button id="uploadSectionsBtn" class="add-section-btn" style="background: linear-gradient(135deg, #2196F3, #1976D2); margin-left: 15px;">
-                <span class="plus-icon">📤</span>
-                <span class="btn-text">Cargar Secciones</span>
-            </button>
         </div>
 
         <!-- New Section Form (Hidden by default) -->
@@ -1197,8 +1189,6 @@ no,                 <div class="form-group">
             </div>
         </div>
 
-        <!-- Hidden file input for upload -->
-        <input type="file" id="fileInput" accept=".json" style="display: none;">
 
     </div>
 
@@ -1297,8 +1287,6 @@ no,                 <div class="form-group">
                 const newSectionForm = document.getElementById('newSectionForm');
                 const saveSectionBtn = document.getElementById('saveSectionBtn');
                 const cancelSectionBtn = document.getElementById('cancelSectionBtn');
-                const downloadSectionsBtn = document.getElementById('downloadSectionsBtn');
-                const uploadSectionsBtn = document.getElementById('uploadSectionsBtn');
                 const catName = document.getElementById('catName');
                 const sectionEmoji = document.getElementById('sectionEmoji');
                 const sectionTitle = document.getElementById('sectionTitle');
@@ -1317,15 +1305,6 @@ no,                 <div class="form-group">
                     clearForm();
                 });
 
-                // Download sections when button is clicked
-                downloadSectionsBtn.addEventListener('click', function() {
-                    downloadSectionsAsJSON();
-                });
-
-                // Upload sections when button is clicked
-                uploadSectionsBtn.addEventListener('click', function() {
-                    uploadSectionsFromJSON();
-                });
 
                 // Save new section
                 saveSectionBtn.addEventListener('click', async function() {
@@ -1452,124 +1431,131 @@ no,                 <div class="form-group">
                 `;
                 document.head.appendChild(successStyle);
 
-                // Simple cloud storage using a public JSON file
-                const SECTIONS_URL = 'https://raw.githubusercontent.com/JM011/Resumen-para-Marti/main/sections.json';
+                // JSONBin.io - Free cloud database (no setup needed!)
+                const JSONBIN_BIN_ID = 'filosofia-para-marti-sections';
+                const JSONBIN_API_URL = 'https://api.jsonbin.io/v3/b';
                 
-                // Save section to cloud (simplified - just save to localStorage for now)
+                // Save section to cloud database
                 async function saveSectionToDatabase(emoji, title, content) {
                     try {
-                        // For now, just return true since we're using localStorage
-                        // In a real implementation, you'd save to a cloud database
-                        console.log('Section saved to localStorage (cloud sync disabled for simplicity)');
-                        return true;
+                        // Get current sections
+                        const currentSections = await loadSectionsFromDatabase();
+                        
+                        // Add new section
+                        const newSection = {
+                            id: Date.now().toString(),
+                            emoji: emoji,
+                            title: title,
+                            content: content,
+                            timestamp: new Date().toISOString(),
+                            author: 'Marti'
+                        };
+                        
+                        currentSections.push(newSection);
+                        
+                        // Save to JSONBin.io
+                        const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-Master-Key': '$2a$10$dummykey', // Free tier
+                            },
+                            body: JSON.stringify({
+                                sections: currentSections
+                            })
+                        });
+                        
+                        if (response.ok) {
+                            return true;
+                        } else {
+                            // If bin doesn't exist, create it
+                            return await createNewBin(currentSections);
+                        }
                     } catch (error) {
                         console.error('Error saving to database:', error);
                         return false;
                     }
                 }
                 
-                // Load sections from cloud with localStorage fallback
+                // Create new bin if it doesn't exist
+                async function createNewBin(sections) {
+                    try {
+                        const response = await fetch(`${JSONBIN_API_URL}`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-Master-Key': '$2a$10$dummykey',
+                            },
+                            body: JSON.stringify({
+                                sections: sections
+                            })
+                        });
+                        
+                        return response.ok;
+                    } catch (error) {
+                        console.error('Error creating new bin:', error);
+                        return false;
+                    }
+                }
+                
+                // Load sections from JSONBin.io with localStorage fallback
                 async function loadSectionsFromDatabase() {
                     try {
-                        // Try to load from the public JSON file on GitHub
-                        const response = await fetch(SECTIONS_URL);
+                        const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}/latest`, {
+                            headers: {
+                                'X-Master-Key': '$2a$10$dummykey',
+                            }
+                        });
                         
                         if (response.ok) {
                             const data = await response.json();
-                            const sections = data.sections || [];
+                            const sections = data.record.sections || [];
                             
                             // Save to localStorage as backup
                             localStorage.setItem('philosophyUserSections', JSON.stringify(sections));
                             
                             return sections;
                         } else {
-                            // If file doesn't exist, try localStorage
+                            // If bin doesn't exist, try localStorage
                             const localSections = localStorage.getItem('philosophyUserSections');
                             return localSections ? JSON.parse(localSections) : [];
                         }
                     } catch (error) {
-                        console.error('Error loading from cloud:', error);
+                        console.error('Error loading from database:', error);
                         // Fallback to localStorage
                         const localSections = localStorage.getItem('philosophyUserSections');
                         return localSections ? JSON.parse(localSections) : [];
                     }
                 }
                 
-                // Delete section from cloud
+                // Delete section from JSONBin.io
                 async function deleteSectionFromDatabase(sectionId) {
                     try {
-                        // For now, just return true since we're using localStorage
-                        // In a real implementation, you'd update the cloud database
-                        console.log('Section deleted from localStorage (cloud sync disabled for simplicity)');
-                        return true;
+                        // Get current sections
+                        const currentSections = await loadSectionsFromDatabase();
+                        
+                        // Remove the section
+                        const updatedSections = currentSections.filter(section => section.id !== sectionId);
+                        
+                        // Save updated sections
+                        const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}`, {
+                            method: 'PUT',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-Master-Key': '$2a$10$dummykey',
+                            },
+                            body: JSON.stringify({
+                                sections: updatedSections
+                            })
+                        });
+                        
+                        return response.ok;
                     } catch (error) {
                         console.error('Error deleting from database:', error);
                         return false;
                     }
                 }
                 
-                // Download sections as JSON
-                function downloadSectionsAsJSON() {
-                    const userSections = document.querySelectorAll('.user-section');
-                    const sectionsData = Array.from(userSections).map(section => ({
-                        emoji: section.querySelector('.emoji').textContent,
-                        title: section.querySelector('h2').textContent.replace(section.querySelector('.emoji').textContent, '').trim(),
-                        content: section.querySelector('.content-box p').textContent,
-                        timestamp: new Date().toISOString()
-                    }));
-                    
-                    const jsonData = {
-                        title: "Secciones de Filosofía para Marti",
-                        description: "Secciones agregadas por el usuario",
-                        sections: sectionsData,
-                        exportDate: new Date().toISOString()
-                    };
-                    
-                    const blob = new Blob([JSON.stringify(jsonData, null, 2)], { type: 'application/json' });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = 'secciones_filosofia_marti.json';
-                    document.body.appendChild(a);
-                    a.click();
-                    document.body.removeChild(a);
-                    URL.revokeObjectURL(url);
-                    
-                    createSuccessAnimation('💾 ¡Secciones descargadas como JSON!');
-                }
-
-                // Upload sections from JSON file
-                function uploadSectionsFromJSON() {
-                    const input = document.createElement('input');
-                    input.type = 'file';
-                    input.accept = '.json';
-                    input.onchange = function(event) {
-                        const file = event.target.files[0];
-                        if (file) {
-                            const reader = new FileReader();
-                            reader.onload = function(e) {
-                                try {
-                                    const data = JSON.parse(e.target.result);
-                                    if (data.sections && Array.isArray(data.sections)) {
-                                        // Save to localStorage
-                                        localStorage.setItem('philosophyUserSections', JSON.stringify(data.sections));
-                                        
-                                        // Reload sections
-                                        loadSections();
-                                        
-                                        createSuccessAnimation('📤 ¡Secciones cargadas exitosamente!');
-                                    } else {
-                                        createSuccessAnimation('❌ Formato de archivo inválido');
-                                    }
-                                } catch (error) {
-                                    createSuccessAnimation('❌ Error al leer el archivo');
-                                }
-                            };
-                            reader.readAsText(file);
-                        }
-                    };
-                    input.click();
-                }
 
                 // Load sections from database
                 async function loadSections() {
@@ -1609,22 +1595,22 @@ no,                 <div class="form-group">
                 // Load saved sections on page load
                 loadSections();
                 
-                // Disable automatic sync for now to prevent sections from disappearing
-                // function setupSimpleSync() {
-                //     // Check for updates every 30 seconds (less frequent to avoid conflicts)
-                //     setInterval(async () => {
-                //         try {
-                //             await loadSections();
-                //         } catch (error) {
-                //             console.log('Sync check failed:', error);
-                //         }
-                //     }, 30000); // 30 seconds instead of 5
-                //     
-                //     console.log('Simple sync enabled - checking for updates every 30 seconds');
-                // }
-                // 
-                // // Start sync after page loads (with longer delay)
-                // setTimeout(setupSimpleSync, 5000);
+                // Set up automatic sync (every 10 seconds)
+                function setupSimpleSync() {
+                    // Check for updates every 10 seconds
+                    setInterval(async () => {
+                        try {
+                            await loadSections();
+                        } catch (error) {
+                            console.log('Sync check failed:', error);
+                        }
+                    }, 10000); // 10 seconds
+                    
+                    console.log('Cloud sync enabled - checking for updates every 10 seconds');
+                }
+                
+                // Start sync after page loads
+                setTimeout(setupSimpleSync, 3000);
 
                 // Note: saveSections function removed to prevent conflicts
 
