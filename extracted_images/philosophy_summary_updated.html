@@ -1,0 +1,1513 @@
+<html lang="es"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ Filosofía para Marti ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Dancing+Script:wght@400;500;600;700&amp;family=Quicksand:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-pink: #ff6b9d;
+            --secondary-pink: #ff8fab;
+            --light-pink: #ffb3d1;
+            --purple: #c77dff;
+            --light-purple: #e0aaff;
+            --dark-purple: #9d4edd;
+            --cream: #fff8f3;
+            --soft-white: #fefefe;
+            --text-dark: #2d1b69;
+            --text-light: #6c5ce7;
+            --accent-gold: #fdcb6e;
+        }
+
+        body {
+            font-family: 'Quicksand', sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background: linear-gradient(135deg, var(--cream) 0%, var(--light-pink) 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background: var(--soft-white);
+            box-shadow: 0 20px 40px rgba(255, 107, 157, 0.1);
+            border-radius: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--purple) 100%);
+            color: white;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .header h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .subtitle {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 300;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.05) 0%, rgba(199, 125, 255, 0.05) 100%);
+            border-radius: 15px;
+            border-left: 5px solid var(--primary-pink);
+            position: relative;
+        }
+
+        .section::before {
+            content: '✨';
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            font-size: 2rem;
+            background: var(--soft-white);
+            padding: 5px 10px;
+            border-radius: 50%;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.2);
+        }
+
+        .section h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2rem;
+            color: var(--purple);
+            margin-bottom: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            color: var(--dark-purple);
+            margin: 20px 0 15px 0;
+            font-weight: 500;
+            border-bottom: 2px solid var(--light-pink);
+            padding-bottom: 5px;
+        }
+
+        .content-box {
+            background: var(--soft-white);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 1px solid var(--light-pink);
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.1);
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, var(--light-pink) 0%, var(--light-purple) 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid var(--primary-pink);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: var(--soft-white);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--purple) 100%);
+            color: white;
+            padding: 15px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-pink);
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: rgba(255, 107, 157, 0.05);
+        }
+
+        .cute-note {
+            background: linear-gradient(135deg, var(--accent-gold) 0%, #ffeaa7 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #fdcb6e;
+            font-style: italic;
+            position: relative;
+        }
+
+        .cute-note::before {
+            content: '💝';
+            position: absolute;
+            top: -5px;
+            right: 10px;
+            font-size: 1.5rem;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+            margin-right: 8px;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        li {
+            margin-bottom: 8px;
+            position: relative;
+        }
+
+        li::marker {
+            color: var(--primary-pink);
+        }
+
+        .fun-fact {
+            background: linear-gradient(135deg, var(--light-purple) 0%, var(--light-pink) 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border: 2px dashed var(--purple);
+            position: relative;
+        }
+
+        .fun-fact::before {
+            content: '🎭';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--soft-white);
+            padding: 5px;
+            border-radius: 50%;
+        }
+
+        /* Small cute images as visual gags */
+        .cute-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-pink);
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+            margin: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .cute-image:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .image-gag {
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+            position: relative;
+        }
+
+        .image-gag::after {
+            content: '😊';
+            position: absolute;
+            bottom: -5px;
+            right: -5px;
+            font-size: 1.2rem;
+            background: var(--accent-gold);
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .floating-image {
+            position: absolute;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        .floating-image.top-right {
+            top: 20px;
+            right: 20px;
+        }
+
+        .floating-image.bottom-left {
+            bottom: 20px;
+            left: 20px;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                font-size: 12pt;
+                line-height: 1.4;
+            }
+
+            .container {
+                max-width: none;
+                margin: 0;
+                padding: 0;
+                box-shadow: none;
+                border-radius: 0;
+                background: white;
+            }
+
+            .header {
+                background: var(--primary-pink) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+                page-break-after: avoid;
+            }
+
+            .section {
+                page-break-inside: avoid;
+                margin-bottom: 20px;
+                padding: 15px;
+                background: white;
+                border: 1px solid #ddd;
+            }
+
+            .section::before {
+                display: none;
+            }
+
+            .content-box, .highlight-box, .cute-note, .fun-fact {
+                background: white;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+
+            .comparison-table {
+                page-break-inside: avoid;
+            }
+
+            .comparison-table th {
+                background: var(--primary-pink) !important;
+                -webkit-print-color-adjust: exact;
+                color-adjust: exact;
+            }
+
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+
+            .cute-image {
+                width: 60px;
+                height: 60px;
+            }
+
+            .floating-image {
+                position: static;
+                display: inline-block;
+                margin: 5px;
+            }
+
+            @page {
+                margin: 1in;
+                size: A4;
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .section h2 {
+                font-size: 1.6rem;
+            }
+
+            .cute-image {
+                width: 60px;
+                height: 60px;
+            }
+        }
+
+        /* Add Section Button Styles */
+        .add-section-container {
+            text-align: center;
+            margin: 40px 0;
+            padding: 20px;
+        }
+        
+        .add-section-btn {
+            background: linear-gradient(135deg, var(--primary-pink), var(--accent-purple));
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .add-section-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 107, 157, 0.4);
+            background: linear-gradient(135deg, var(--accent-purple), var(--primary-pink));
+        }
+        
+        .add-section-btn:active {
+            transform: translateY(-1px);
+        }
+        
+        .plus-icon {
+            font-size: 20px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* New Section Form Styles */
+        .new-section-form {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid var(--primary-pink);
+        }
+        
+        .form-container h3 {
+            color: var(--primary-pink);
+            text-align: center;
+            margin-bottom: 25px;
+            font-family: 'Dancing Script', cursive;
+            font-size: 28px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--accent-purple);
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid var(--light-pink);
+            border-radius: 15px;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 15px rgba(255, 107, 157, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .form-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        .save-btn, .cancel-btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .save-btn {
+            background: linear-gradient(135deg, var(--primary-pink), var(--accent-purple));
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.3);
+        }
+        
+        .save-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 157, 0.4);
+        }
+        
+        .cancel-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+        
+        .cancel-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+        }
+
+        /* User-added sections */
+        .user-section {
+            animation: slideIn 0.5s ease-out;
+            border-left: 5px solid var(--primary-pink);
+            background: linear-gradient(135deg, rgba(255, 107, 157, 0.05), rgba(147, 51, 234, 0.05));
+            position: relative;
+        }
+        
+        .user-section:hover .section-controls {
+            opacity: 1;
+        }
+        
+        .section-controls {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: flex;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .edit-btn, .delete-btn {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid var(--primary-pink);
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 14px;
+            box-shadow: 0 3px 10px rgba(255, 107, 157, 0.2);
+        }
+        
+        .edit-btn:hover {
+            background: var(--primary-pink);
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .delete-btn:hover {
+            background: #ff6b6b;
+            color: white;
+            border-color: #ff6b6b;
+            transform: scale(1.1);
+        }
+        
+        .section-editing {
+            background: rgba(255, 255, 255, 0.95);
+            border: 2px dashed var(--primary-pink);
+            border-radius: 15px;
+            padding: 20px;
+        }
+        
+        .section-editing input,
+        .section-editing textarea {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid var(--light-pink);
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+        
+        .section-editing input:focus,
+        .section-editing textarea:focus {
+            outline: none;
+            border-color: var(--primary-pink);
+            box-shadow: 0 0 10px rgba(255, 107, 157, 0.3);
+        }
+        
+        .section-editing textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .edit-controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+        
+        .save-edit-btn, .cancel-edit-btn {
+            padding: 8px 20px;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .save-edit-btn {
+            background: linear-gradient(135deg, var(--primary-pink), var(--accent-purple));
+            color: white;
+            box-shadow: 0 3px 10px rgba(255, 107, 157, 0.3);
+        }
+        
+        .save-edit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 157, 0.4);
+        }
+        
+        .cancel-edit-btn {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a52);
+            color: white;
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+        }
+        
+        .cancel-edit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+<style>
+                    @keyframes floatUp {
+                        0% {
+                            transform: translateY(0) rotate(0deg);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translateY(-100vh) rotate(360deg);
+                            opacity: 0;
+                        }
+                    }
+                </style><style>
+                    @keyframes fadeInOut {
+                        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                        20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+                        80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                        100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                    }
+                </style><style>
+                    @keyframes slideOut {
+                        from {
+                            opacity: 1;
+                            transform: translateX(0);
+                        }
+                        to {
+                            opacity: 0;
+                            transform: translateX(-100%);
+                        }
+                    }
+                </style></head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>❤️ Filosofía para Marti ❤️</h1>
+            <p class="subtitle">Hecho con amor</p>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">🎯</span>¿Qué es la Filosofía?</h2>
+            
+            <div class="content-box">
+                <p>La filosofía se diferencia de otras disciplinas porque busca la verdad última y los principios universales de la realidad, no solo hechos o aplicaciones prácticas.</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>📚 Ciencia o técnica</h3>
+                <p>Estudian hechos concretos o cómo hacer cosas (biología, física, ingeniería).</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h3>🤔 Filosofía</h3>
+                <p>Estudia el ser, la causa, el sentido y los valores de todo lo que existe.</p>
+            </div>
+            
+            <div class="cute-note">
+                <strong>Método:</strong> Se basa en la razón y la argumentación, no solo en la observación o experimentación.
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">👥</span>Los Sofistas</h2>
+            
+            <div class="content-box">
+                <p>Maestros itinerantes de Grecia clásica que enseñaban retórica, persuasión y habilidades políticas.</p>
+            </div>
+            
+            <h3>🎭 Características principales:</h3>
+            <ul>
+                <li><strong>Relativismo:</strong> La verdad depende del individuo o de la ciudad ("el hombre es la medida de todas las cosas" – Protágoras)</li>
+                <li><strong>Énfasis práctico:</strong> Enfatizaban el éxito práctico sobre la búsqueda de la verdad</li>
+                <li><strong>Enseñanza pagada:</strong> Cobraban por enseñar, a diferencia de filósofos como Sócrates</li>
+            </ul>
+            
+            <h3>⚔️ Oposición de Sócrates:</h3>
+            <ul>
+                <li>Criticaba que los sofistas persuadieran sin buscar la verdad</li>
+                <li>Defendía que la filosofía debía guiarse por valores universales y el bien</li>
+                <li>Introdujo el método dialéctico: preguntas y diálogo para llegar a la verdad, no solo a convencer</li>
+            </ul>
+            
+            <div class="fun-fact">
+                <strong>En pocas palabras:</strong><br>
+                <strong>Sofistas:</strong> Enseñan a ganar discusiones y triunfar<br>
+                <strong>Sócrates:</strong> Enseña a buscar la verdad y el bien
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">🏛️</span>Metafísica de Aristóteles</h2>
+            
+            <div class="content-box">
+                <h3>🎯 Objeto de estudio:</h3>
+                <p>El ente en cuanto ente → lo que es en sí mismo, más allá de lo particular.</p>
+                
+                <h3>🔍 Arjé/Metafísica:</h3>
+                <p>Busca los principios y causas últimas de la realidad.</p>
+            </div>
+            
+            <h3>📋 Conceptos clave:</h3>
+            <ul>
+                <li><strong>Sustancia (ousía):</strong> Lo que existe por sí mismo, lo fundamental de cada ser</li>
+                <li><strong>Esencia vs. Existencia:</strong> Lo que algo es (esencia) y el hecho de que existe (existencia)</li>
+                <li><strong>Acto y Potencia:</strong> Todo ente tiene potencialidad y actualidad</li>
+            </ul>
+            
+            <h3>🎯 Las Cuatro Causas:</h3>
+            <table class="comparison-table">
+                <tbody><tr>
+                    <th>Causa</th>
+                    <th>Descripción</th>
+                </tr>
+                <tr>
+                    <td><strong>Material</strong></td>
+                    <td>De qué está hecho</td>
+                </tr>
+                <tr>
+                    <td><strong>Formal</strong></td>
+                    <td>Su forma/estructura</td>
+                </tr>
+                <tr>
+                    <td><strong>Eficiente</strong></td>
+                    <td>Quién o qué lo produce</td>
+                </tr>
+                <tr>
+                    <td><strong>Final</strong></td>
+                    <td>El fin o propósito</td>
+                </tr>
+            </tbody></table>
+            
+            <div class="cute-note">
+                <strong>Categorías:</strong> Aspectos generales de todo ente (sustancia, cantidad, cualidad, relación, lugar, tiempo, posición, estado, acción, pasión).
+            </div>
+            
+            <div class="cute-note">
+                <strong>Meta:</strong> Entender la realidad universal, más allá de ciencias particulares (física, biología, ética).
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">🧠</span>Principios Lógicos (Aristóteles)</h2>
+            
+            <div class="content-box">
+                <h3>📐 Los Tres Principios Fundamentales:</h3>
+                <ul>
+                    <li><strong>Principio de Identidad:</strong> Todo es idéntico a sí mismo (A = A)</li>
+                    <li><strong>Principio de No Contradicción:</strong> Algo no puede ser y no ser al mismo tiempo (A ≠ ¬A)</li>
+                    <li><strong>Principio del Tercero Excluido:</strong> Algo es o no es; no hay término medio</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">🌍</span>Entes</h2>
+            
+            <div class="content-box">
+                <p>Todo lo que existe.</p>
+                <p>Puede ser material (árbol, roca) o inmaterial (alma, pensamiento).</p>
+                <p>Para Aristóteles, se estudian en cuanto "ente en cuanto ente" (metafísica).</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">🔍</span>Ontología</h2>
+            
+            <div class="content-box">
+                <p>Rama de la filosofía que estudia el ser y sus modos, es decir, qué significa existir.</p>
+                
+                <h3>❓ Preguntas fundamentales:</h3>
+                <ul>
+                    <li>¿Qué hay?</li>
+                    <li>¿Qué es lo que hace que algo sea lo que es?</li>
+                </ul>
+                
+                <div class="cute-note">
+                    Se relaciona con la metafísica, porque busca los principios y causas universales de todo ente.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">🌍</span>Tipos de Entes</h2>
+            
+            <div class="content-box">
+                <h3>👁️ Entes Sensibles</h3>
+                <p>Todo lo que puede ser percibido o experimentado, ya sea por los sentidos o por la conciencia.</p>
+                
+                <ul>
+                    <li><strong>Físicos:</strong> Percibidos directamente por los sentidos (árbol, piedra, animal)</li>
+                    <li><strong>Psíquicos:</strong> Fenómenos de la mente o conciencia que también "aparecen" a la experiencia (pensamientos, emociones, deseos)</li>
+                </ul>
+                
+                <h3>💭 Entes Ideales</h3>
+                <p>Ideas o conceptos universales, no sensibles.</p>
+                
+                <h3>⭐ Entes Valores</h3>
+                <p>Principios de lo bueno, justo o bello.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">🎭</span>Emociones y Ramas Filosóficas</h2>
+            
+            <div class="content-box">
+                <table class="comparison-table">
+                    <tbody><tr>
+                        <th>Emoción</th>
+                        <th>Efecto filosófico</th>
+                        <th>Rama relacionada</th>
+                        <th>Por qué conduce allí</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Asombro</strong></td>
+                        <td>Despertar la reflexión sobre el ser y la realidad</td>
+                        <td>Metafísica</td>
+                        <td>Sorprende ante la existencia; impulsa a preguntar "¿qué es la realidad?"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Angustia</strong></td>
+                        <td>Genera preocupación sobre el bien, el deber y la vida</td>
+                        <td>Ética</td>
+                        <td>Ante el sufrimiento o conflicto, surge la pregunta "¿qué debo hacer?"</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Duda</strong></td>
+                        <td>Provoca examen crítico del conocimiento y la verdad</td>
+                        <td>Epistemología / Gnoseología</td>
+                        <td>La incertidumbre lleva a investigar "¿qué podemos conocer y cómo?"</td>
+                    </tr>
+                </tbody></table>
+                
+                <div class="fun-fact">
+                    <strong>👉 Resumen rápido:</strong><br>
+                    <strong>Asombro → metafísica:</strong> reflexionar sobre la realidad y el ser.<br>
+                    <strong>Angustia → ética:</strong> reflexionar sobre la vida buena y los valores.<br>
+                    <strong>Duda → epistemología:</strong> reflexionar sobre el conocimiento y su certeza.
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">⚡</span>Mito vs Logos</h2>
+            
+            <div class="content-box">
+                <table class="comparison-table">
+                    <tbody><tr>
+                        <th>Aspecto</th>
+                        <th>Mito</th>
+                        <th>Logos</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Definición</strong></td>
+                        <td>Relato tradicional, religioso o poético que explica el mundo</td>
+                        <td>Razonamiento, discurso racional y lógico que explica el mundo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Base</strong></td>
+                        <td>Creencias, dioses, magia, tradiciones</td>
+                        <td>Observación, lógica, argumentación</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Objetivo</strong></td>
+                        <td>Contar historias, transmitir valores, explicar fenómenos</td>
+                        <td>Buscar la verdad, comprender causas y principios</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ejemplo</strong></td>
+                        <td>Mitos de la creación (Zeus, Prometeo)</td>
+                        <td>Filosofía jónica: Tales → agua, Anaximandro → apeiron</td>
+                    </tr>
+                </tbody></table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">🤷‍♂️</span>Pirrón vs Descartes</h2>
+            
+            <div class="content-box">
+                <table class="comparison-table">
+                    <tbody><tr>
+                        <th>Filósofo</th>
+                        <th>Contexto</th>
+                        <th>Actitud hacia la duda</th>
+                        <th>Propósito de la duda</th>
+                        <th>Concepto clave</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Pirrón</strong></td>
+                        <td>Filosofía escéptica griega</td>
+                        <td>Duda radical sobre todo conocimiento</td>
+                        <td>Alcanzar ataraxia (tranquilidad) evitando afirmar algo</td>
+                        <td>Escepticismo: no se puede conocer la verdad absoluta</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Descartes</strong></td>
+                        <td>Filosofía moderna (Racionalismo)</td>
+                        <td>Duda metódica: duda todo lo que se pueda dudar</td>
+                        <td>Llegar a una certeza indudable (cogito: "pienso, luego existo")</td>
+                        <td>Método de duda: camino hacia la verdad segura</td>
+                    </tr>
+                </tbody></table>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">⚖️</span>Anaxímenes vs Heráclito vs Parménides</h2>
+            
+            <div class="content-box">
+                <p>Los presocráticos que debatieron sobre la naturaleza fundamental de la realidad y el cambio.</p>
+                
+                <div class="highlight-box">
+                    <h3>🔍 Anaxímenes</h3>
+                    <p>Arjé: El aire. Todo proviene del aire por condensación y rarefacción.</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>🔥 Heráclito</h3>
+                    <p>Arjé: El fuego. "Todo fluye" - la realidad está en constante cambio. "No puedes bañarte dos veces en el mismo río."</p>
+                </div>
+                
+                <div class="highlight-box">
+                    <h3>⚪ Parménides</h3>
+                    <p>Arjé: El ser. La realidad es una, inmutable e inmóvil. El cambio es una ilusión de los sentidos.</p>
+                </div>
+                
+                <div class="fun-fact">
+                    <strong>🎭 El debate fundamental:</strong><br>
+                    <strong>Heráclito:</strong> "Todo cambia"<br>
+                    <strong>Parménides:</strong> "Nada cambia"<br>
+                    <strong>Anaxímenes:</strong> "El aire es el principio de todo"
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">🏛️</span>Sócrates (basadisimo)</h2>
+            
+            <div class="content-box">
+                <p>El gran opositor de los sofistas y uno de los filósofos más influyentes de la historia.</p>
+                
+                <h3>⚔️ Oposición a los Sofistas:</h3>
+                <ul>
+                    <li>Criticaba que los sofistas persuadieran sin buscar la verdad</li>
+                    <li>Defendía que la filosofía debía guiarse por valores universales y el bien</li>
+                    <li>Introdujo el método dialéctico: preguntas y diálogo para llegar a la verdad, no solo a convencer</li>
+                </ul>
+                
+                <div class="fun-fact">
+                    <strong>En pocas palabras:</strong><br>
+                    <strong>Sofistas:</strong> Enseñan a ganar discusiones y triunfar<br>
+                    <strong>Sócrates:</strong> Enseña a buscar la verdad y el bien
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2><span class="emoji">💝</span>Nota Final</h2>
+            
+            <div class="cute-note">
+                <p>Me quedé despierto haciendote este resumen, espero que te sirva, te amo 💕</p>
+            </div>
+        </div>
+
+        <!-- Add New Section Button -->
+        <div class="section user-section">
+                        <div class="section-controls">
+                            <button class="edit-btn" title="Editar sección">✏️</button>
+                            <button class="delete-btn" title="Eliminar sección">🗑️</button>
+                        </div>
+                        <h2><span class="emoji">❤️</span>Conceptos claves que recordar de Socrates</h2>
+                        <div class="content-box">
+                            <p>Método socrático: técnica de enseñanza basada en preguntas y diálogo para guiar al interlocutor hacia la verdad.<br>Mayéutica: “dar a luz” las ideas; Sócrates ayuda a que la persona descubra por sí misma conocimientos que ya posee.<br>Refutación (elenchus): consiste en contrastar opiniones, mostrando contradicciones para eliminar falsedades y acercarse al conocimiento verdade</p>
+                        </div>
+                    </div><div class="section user-section">
+                        <div class="section-controls">
+                            <button class="edit-btn" title="Editar sección">✏️</button>
+                            <button class="delete-btn" title="Eliminar sección">🗑️</button>
+                        </div>
+                        <h2><span class="emoji">❤️</span>Conceptos claves que recordar de Socrates</h2>
+                        <div class="content-box">
+                            <p>Método socrático: técnica de enseñanza basada en preguntas y diálogo para guiar al interlocutor hacia la verdad.<br>Mayéutica: “dar a luz” las ideas; Sócrates ayuda a que la persona descubra por sí misma conocimientos que ya posee.<br>Refutación (elenchus): consiste en contrastar opiniones, mostrando contradicciones para eliminar falsedades y acercarse al conocimiento verdade</p>
+                        </div>
+                    </div>
+        <div class="add-section-container">
+            <button id="addSectionBtn" class="add-section-btn">
+                <span class="plus-icon">➕</span>
+                <span class="btn-text">Agregar Nueva Sección</span>
+            </button>
+            <button id="downloadUpdatedBtn" class="add-section-btn" style="background: linear-gradient(135deg, #4CAF50, #45a049); margin-left: 15px;">
+                <span class="plus-icon">💾</span>
+                <span class="btn-text">Descargar Archivo Actualizado</span>
+            </button>
+        </div>
+
+        <!-- New Section Form (Hidden by default) -->
+        <div id="newSectionForm" class="new-section-form" style="display: none;">
+            <div class="form-container">
+                <h3>✨ Crear Nueva Sección</h3>
+                
+                <div class="form-group">
+                    <label for="sectionEmoji">Emoji:</label>
+                    <input type="text" id="sectionEmoji" placeholder="🎯" maxlength="2">
+                </div>
+                
+                <div class="form-group">
+                    <label for="sectionTitle">Título:</label>
+                    <input type="text" id="sectionTitle" placeholder="Mi Nueva Sección">
+                </div>
+                
+                <div class="form-group">
+                    <label for="sectionContent">Contenido:</label>
+                    <textarea id="sectionContent" placeholder="Escribe aquí el contenido de tu nueva sección..."></textarea>
+                </div>
+                
+                <div class="form-buttons">
+                    <button id="saveSectionBtn" class="save-btn">💾 Guardar</button>
+                    <button id="cancelSectionBtn" class="cancel-btn">❌ Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Small cute images as visual gags scattered throughout -->
+    <div class="floating-image top-right" style="top: 100px; right: 20px;">
+        <div class="image-gag">
+            <img src="extracted_images/image_02.png" alt="Cute philosophy image 1" class="cute-image">
+        </div>
+    </div>
+    
+    <div class="floating-image top-right" style="top: 150px; right: 50px;">
+        <div class="image-gag">
+            <img src="extracted_images/image_03.png" alt="Cute philosophy image 2" class="cute-image">
+        </div>
+    </div>
+    
+    <div class="floating-image top-right" style="top: 200px; right: 80px;">
+        <div class="image-gag">
+            <img src="extracted_images/image_04.png" alt="Cute philosophy image 3" class="cute-image">
+        </div>
+    </div>
+    
+    <div class="floating-image bottom-left" style="bottom: 100px; left: 20px;">
+        <div class="image-gag">
+            <img src="extracted_images/image_06.png" alt="Cute philosophy image 4" class="cute-image">
+        </div>
+    </div>
+    
+    <div class="floating-image bottom-left" style="bottom: 150px; left: 50px;">
+        <div class="image-gag">
+            <img src="extracted_images/image_11.png" alt="Cute philosophy image 5" class="cute-image">
+        </div>
+    </div>
+    
+    <div class="floating-image bottom-left" style="bottom: 200px; left: 80px;">
+        <div class="image-gag">
+            <img src="extracted_images/march.webp" alt="Cute philosophy image 6" class="cute-image">
+        </div>
+    </div>
+    
+    <div class="image-gag" style="display: inline-block; margin: 10px;">
+        <img src="extracted_images/mualani.jpg" alt="Cute philosophy image 7" class="cute-image">
+    </div>
+    
+    <div class="image-gag" style="display: inline-block; margin: 10px;">
+        <img src="extracted_images/robin.jpg" alt="Cute philosophy image 8" class="cute-image">
+    </div>
+    
+    <div class="image-gag" style="display: inline-block; margin: 10px;">
+        <img src="extracted_images/righttitle.gif" alt="Cute philosophy image 9" class="cute-image">
+    </div>
+
+        <script>
+            // Add some cute interactive elements
+            document.addEventListener('DOMContentLoaded', function() {
+                // Add floating hearts animation
+                function createFloatingHeart() {
+                    const heart = document.createElement('div');
+                    heart.innerHTML = '💕';
+                    heart.style.position = 'fixed';
+                    heart.style.left = Math.random() * 100 + 'vw';
+                    heart.style.top = '100vh';
+                    heart.style.fontSize = '20px';
+                    heart.style.pointerEvents = 'none';
+                    heart.style.zIndex = '1000';
+                    heart.style.animation = 'floatUp 3s ease-out forwards';
+                    
+                    document.body.appendChild(heart);
+                    
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 3000);
+                }
+                
+                // Add CSS for floating animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes floatUp {
+                        0% {
+                            transform: translateY(0) rotate(0deg);
+                            opacity: 1;
+                        }
+                        100% {
+                            transform: translateY(-100vh) rotate(360deg);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+                
+                // Create hearts periodically
+                setInterval(createFloatingHeart, 5000);
+
+                // Interactive Add Section functionality
+                const addSectionBtn = document.getElementById('addSectionBtn');
+                const newSectionForm = document.getElementById('newSectionForm');
+                const saveSectionBtn = document.getElementById('saveSectionBtn');
+                const cancelSectionBtn = document.getElementById('cancelSectionBtn');
+                const downloadUpdatedBtn = document.getElementById('downloadUpdatedBtn');
+                const sectionEmoji = document.getElementById('sectionEmoji');
+                const sectionTitle = document.getElementById('sectionTitle');
+                const sectionContent = document.getElementById('sectionContent');
+
+                // Show form when button is clicked
+                addSectionBtn.addEventListener('click', function() {
+                    newSectionForm.style.display = 'block';
+                    newSectionForm.scrollIntoView({ behavior: 'smooth' });
+                    sectionEmoji.focus();
+                });
+
+                // Hide form when cancel is clicked
+                cancelSectionBtn.addEventListener('click', function() {
+                    newSectionForm.style.display = 'none';
+                    clearForm();
+                });
+
+                // Download updated file when button is clicked
+                downloadUpdatedBtn.addEventListener('click', function() {
+                    generateUpdatedHTML();
+                });
+
+                // Save new section
+                saveSectionBtn.addEventListener('click', function() {
+                    const emoji = sectionEmoji.value.trim() || '📝';
+                    const title = sectionTitle.value.trim();
+                    const content = sectionContent.value.trim();
+
+                    if (!title || !content) {
+                        alert('Por favor, completa el título y el contenido de la sección.');
+                        return;
+                    }
+
+                    // Create new section
+                    const newSection = document.createElement('div');
+                    newSection.className = 'section user-section';
+                    newSection.innerHTML = `
+                        <div class="section-controls">
+                            <button class="edit-btn" title="Editar sección">✏️</button>
+                            <button class="delete-btn" title="Eliminar sección">🗑️</button>
+                        </div>
+                        <h2><span class="emoji">${emoji}</span>${title}</h2>
+                        <div class="content-box">
+                            <p>${content.replace(/\n/g, '<br>')}</p>
+                        </div>
+                    `;
+
+                    // Insert before the "Add Section" button
+                    const addSectionContainer = document.querySelector('.add-section-container');
+                    addSectionContainer.parentNode.insertBefore(newSection, addSectionContainer);
+
+                    // Hide form and clear inputs
+                    newSectionForm.style.display = 'none';
+                    clearForm();
+
+                    // Scroll to new section
+                    newSection.scrollIntoView({ behavior: 'smooth' });
+
+                    // Add a cute success animation
+                    createSuccessAnimation();
+                    
+                    // Automatically generate and download updated HTML
+                    setTimeout(() => {
+                        generateUpdatedHTML();
+                    }, 1000);
+                });
+
+                // Clear form function
+                function clearForm() {
+                    sectionEmoji.value = '';
+                    sectionTitle.value = '';
+                    sectionContent.value = '';
+                }
+
+                // Success animation
+                function createSuccessAnimation() {
+                    const success = document.createElement('div');
+                    success.innerHTML = '✨ ¡Sección agregada! ✨';
+                    success.style.position = 'fixed';
+                    success.style.top = '50%';
+                    success.style.left = '50%';
+                    success.style.transform = 'translate(-50%, -50%)';
+                    success.style.background = 'linear-gradient(135deg, var(--primary-pink), var(--accent-purple))';
+                    success.style.color = 'white';
+                    success.style.padding = '15px 30px';
+                    success.style.borderRadius = '25px';
+                    success.style.fontSize = '18px';
+                    success.style.fontWeight = '600';
+                    success.style.zIndex = '2000';
+                    success.style.boxShadow = '0 10px 30px rgba(255, 107, 157, 0.4)';
+                    success.style.animation = 'fadeInOut 2s ease-in-out forwards';
+                    
+                    document.body.appendChild(success);
+                    
+                    setTimeout(() => {
+                        success.remove();
+                    }, 2000);
+                }
+
+                // Add CSS for success animation
+                const successStyle = document.createElement('style');
+                successStyle.textContent = `
+                    @keyframes fadeInOut {
+                        0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                        20% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+                        80% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+                        100% { opacity: 0; transform: translate(-50%, -50%) scale(0.8); }
+                    }
+                `;
+                document.head.appendChild(successStyle);
+
+                // Save sections to localStorage and generate downloadable HTML
+                function saveSections() {
+                    const userSections = document.querySelectorAll('.user-section');
+                    const sectionsData = Array.from(userSections).map(section => ({
+                        emoji: section.querySelector('.emoji').textContent,
+                        title: section.querySelector('h2').textContent.replace(section.querySelector('.emoji').textContent, '').trim(),
+                        content: section.querySelector('.content-box p').innerHTML
+                    }));
+                    localStorage.setItem('philosophyUserSections', JSON.stringify(sectionsData));
+                    
+                    // Generate and download updated HTML file
+                    generateUpdatedHTML();
+                }
+                
+                // Generate updated HTML with user sections
+                function generateUpdatedHTML() {
+                    const userSections = document.querySelectorAll('.user-section');
+                    let userSectionsHTML = '';
+                    
+                    userSections.forEach(section => {
+                        userSectionsHTML += section.outerHTML + '\n        ';
+                    });
+                    
+                    // Get the original HTML content
+                    const originalHTML = document.documentElement.outerHTML;
+                    
+                    // Find the position to insert user sections (before the add-section-container)
+                    const addSectionContainerIndex = originalHTML.indexOf('<div class="add-section-container">');
+                    
+                    if (addSectionContainerIndex !== -1) {
+                        // Create new HTML with user sections inserted
+                        const beforeContainer = originalHTML.substring(0, addSectionContainerIndex);
+                        const afterContainer = originalHTML.substring(addSectionContainerIndex);
+                        
+                        const updatedHTML = beforeContainer + userSectionsHTML + afterContainer;
+                        
+                        // Create and download the updated file
+                        downloadUpdatedHTML(updatedHTML);
+                    }
+                }
+                
+                // Download the updated HTML file
+                function downloadUpdatedHTML(htmlContent) {
+                    const blob = new Blob([htmlContent], { type: 'text/html' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = 'philosophy_summary_updated.html';
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    URL.revokeObjectURL(url);
+                    
+                    // Show notification
+                    createSuccessAnimation('💾 ¡Archivo actualizado descargado! Abre el nuevo archivo para ver los cambios permanentes.');
+                }
+
+                // Load sections from localStorage
+                function loadSections() {
+                    const savedSections = localStorage.getItem('philosophyUserSections');
+                    if (savedSections) {
+                        const sectionsData = JSON.parse(savedSections);
+                        const addSectionContainer = document.querySelector('.add-section-container');
+                        
+                        sectionsData.forEach(sectionData => {
+                            const newSection = document.createElement('div');
+                            newSection.className = 'section user-section';
+                            newSection.innerHTML = `
+                                <div class="section-controls">
+                                    <button class="edit-btn" title="Editar sección">✏️</button>
+                                    <button class="delete-btn" title="Eliminar sección">🗑️</button>
+                                </div>
+                                <h2><span class="emoji">${sectionData.emoji}</span>${sectionData.title}</h2>
+                                <div class="content-box">
+                                    <p>${sectionData.content}</p>
+                                </div>
+                            `;
+                            addSectionContainer.parentNode.insertBefore(newSection, addSectionContainer);
+                        });
+                    }
+                }
+
+                // Load saved sections on page load
+                loadSections();
+
+                // Save sections whenever a new one is added
+                saveSectionBtn.addEventListener('click', function() {
+                    setTimeout(saveSections, 100);
+                });
+
+                // Add event listeners for edit and delete buttons
+                document.addEventListener('click', function(e) {
+                    if (e.target.classList.contains('edit-btn')) {
+                        editSection(e.target.closest('.user-section'));
+                    } else if (e.target.classList.contains('delete-btn')) {
+                        deleteSection(e.target.closest('.user-section'));
+                    } else if (e.target.classList.contains('save-edit-btn')) {
+                        saveEdit(e.target.closest('.user-section'));
+                    } else if (e.target.classList.contains('cancel-edit-btn')) {
+                        cancelEdit(e.target.closest('.user-section'));
+                    }
+                });
+
+                // Edit section function
+                function editSection(section) {
+                    const emoji = section.querySelector('.emoji').textContent;
+                    const title = section.querySelector('h2').textContent.replace(emoji, '').trim();
+                    const content = section.querySelector('.content-box p').textContent;
+
+                    section.classList.add('section-editing');
+                    section.innerHTML = `
+                        <div class="section-controls">
+                            <button class="save-edit-btn">💾 Guardar</button>
+                            <button class="cancel-edit-btn">❌ Cancelar</button>
+                        </div>
+                        <input type="text" class="edit-emoji" value="${emoji}" placeholder="🎯" maxlength="2">
+                        <input type="text" class="edit-title" value="${title}" placeholder="Título de la sección">
+                        <textarea class="edit-content" placeholder="Contenido de la sección...">${content}</textarea>
+                    `;
+                    
+                    section.querySelector('.edit-emoji').focus();
+                }
+
+                // Save edit function
+                function saveEdit(section) {
+                    const emoji = section.querySelector('.edit-emoji').value.trim() || '📝';
+                    const title = section.querySelector('.edit-title').value.trim();
+                    const content = section.querySelector('.edit-content').value.trim();
+
+                    if (!title || !content) {
+                        alert('Por favor, completa el título y el contenido de la sección.');
+                        return;
+                    }
+
+                    section.classList.remove('section-editing');
+                    section.innerHTML = `
+                        <div class="section-controls">
+                            <button class="edit-btn" title="Editar sección">✏️</button>
+                            <button class="delete-btn" title="Eliminar sección">🗑️</button>
+                        </div>
+                        <h2><span class="emoji">${emoji}</span>${title}</h2>
+                        <div class="content-box">
+                            <p>${content.replace(/\n/g, '<br>')}</p>
+                        </div>
+                    `;
+
+                    // Save to localStorage
+                    setTimeout(saveSections, 100);
+                    createSuccessAnimation('✨ ¡Sección editada! ✨');
+                    
+                    // Automatically generate and download updated HTML
+                    setTimeout(() => {
+                        generateUpdatedHTML();
+                    }, 2000);
+                }
+
+                // Cancel edit function
+                function cancelEdit(section) {
+                    // Reload the section from localStorage
+                    loadSections();
+                    createSuccessAnimation('❌ Edición cancelada');
+                }
+
+                // Delete section function
+                function deleteSection(section) {
+                    if (confirm('¿Estás segura de que quieres eliminar esta sección?')) {
+                        section.style.animation = 'slideOut 0.3s ease-in forwards';
+                        setTimeout(() => {
+                            section.remove();
+                            saveSections();
+                            createSuccessAnimation('🗑️ ¡Sección eliminada!');
+                            
+                            // Automatically generate and download updated HTML
+                            setTimeout(() => {
+                                generateUpdatedHTML();
+                            }, 2000);
+                        }, 300);
+                    }
+                }
+
+                // Add slideOut animation
+                const slideOutStyle = document.createElement('style');
+                slideOutStyle.textContent = `
+                    @keyframes slideOut {
+                        from {
+                            opacity: 1;
+                            transform: translateX(0);
+                        }
+                        to {
+                            opacity: 0;
+                            transform: translateX(-100%);
+                        }
+                    }
+                `;
+                document.head.appendChild(slideOutStyle);
+
+                // Update success animation to accept custom message
+                function createSuccessAnimation(message = '✨ ¡Sección agregada! ✨') {
+                    const success = document.createElement('div');
+                    success.innerHTML = message;
+                    success.style.position = 'fixed';
+                    success.style.top = '50%';
+                    success.style.left = '50%';
+                    success.style.transform = 'translate(-50%, -50%)';
+                    success.style.background = 'linear-gradient(135deg, var(--primary-pink), var(--accent-purple))';
+                    success.style.color = 'white';
+                    success.style.padding = '15px 30px';
+                    success.style.borderRadius = '25px';
+                    success.style.fontSize = '18px';
+                    success.style.fontWeight = '600';
+                    success.style.zIndex = '2000';
+                    success.style.boxShadow = '0 10px 30px rgba(255, 107, 157, 0.4)';
+                    success.style.animation = 'fadeInOut 2s ease-in-out forwards';
+                    
+                    document.body.appendChild(success);
+                    
+                    setTimeout(() => {
+                        success.remove();
+                    }, 2000);
+                }
+            });
+        </script>
+
+
+    <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: linear-gradient(135deg, var(--primary-pink), var(--accent-purple)); color: white; padding: 15px 30px; border-radius: 25px; font-size: 18px; font-weight: 600; z-index: 2000; box-shadow: rgba(255, 107, 157, 0.4) 0px 10px 30px; animation: 2s ease-in-out 0s 1 normal forwards running fadeInOut;">✨ ¡Sección agregada! ✨</div></body></html>
