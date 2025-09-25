@@ -1154,6 +1154,10 @@
                 <span class="plus-icon">💾</span>
                 <span class="btn-text">Descargar Secciones</span>
             </button>
+            <button id="uploadSectionsBtn" class="add-section-btn" style="background: linear-gradient(135deg, #2196F3, #1976D2); margin-left: 15px;">
+                <span class="plus-icon">📤</span>
+                <span class="btn-text">Cargar Secciones</span>
+            </button>
         </div>
 
         <!-- New Section Form (Hidden by default) -->
@@ -1171,7 +1175,7 @@
                     <input type="text" id="catName" placeholder="El nombre de tu gatito que fue...">
                 </div>
                 
-                <div class="form-group">
+no,                 <div class="form-group">
                     <label for="sectionEmoji">Emoji:</label>
                     <input type="text" id="sectionEmoji" placeholder="🎯" maxlength="2">
                 </div>
@@ -1192,6 +1196,9 @@
                 </div>
             </div>
         </div>
+
+        <!-- Hidden file input for upload -->
+        <input type="file" id="fileInput" accept=".json" style="display: none;">
 
     </div>
 
@@ -1291,6 +1298,7 @@
                 const saveSectionBtn = document.getElementById('saveSectionBtn');
                 const cancelSectionBtn = document.getElementById('cancelSectionBtn');
                 const downloadSectionsBtn = document.getElementById('downloadSectionsBtn');
+                const uploadSectionsBtn = document.getElementById('uploadSectionsBtn');
                 const catName = document.getElementById('catName');
                 const sectionEmoji = document.getElementById('sectionEmoji');
                 const sectionTitle = document.getElementById('sectionTitle');
@@ -1312,6 +1320,11 @@
                 // Download sections when button is clicked
                 downloadSectionsBtn.addEventListener('click', function() {
                     downloadSectionsAsJSON();
+                });
+
+                // Upload sections when button is clicked
+                uploadSectionsBtn.addEventListener('click', function() {
+                    uploadSectionsFromJSON();
                 });
 
                 // Save new section
@@ -1439,125 +1452,56 @@
                 `;
                 document.head.appendChild(successStyle);
 
-                // JSONBin.io configuration - No setup needed!
-                const JSONBIN_BIN_ID = 'filosofia-para-marti-sections';
-                const JSONBIN_API_URL = 'https://api.jsonbin.io/v3/b';
+                // Simple cloud storage using a public JSON file
+                const SECTIONS_URL = 'https://raw.githubusercontent.com/JM011/Resumen-para-Marti/main/sections.json';
                 
-                // Save section to JSONBin.io
+                // Save section to cloud (simplified - just save to localStorage for now)
                 async function saveSectionToDatabase(emoji, title, content) {
                     try {
-                        // First, get current sections
-                        const currentSections = await loadSectionsFromDatabase();
-                        
-                        // Add new section
-                        const newSection = {
-                            id: Date.now().toString(), // Simple ID based on timestamp
-                            emoji: emoji,
-                            title: title,
-                            content: content,
-                            timestamp: new Date().toISOString(),
-                            author: 'Marti'
-                        };
-                        
-                        currentSections.push(newSection);
-                        
-                        // Save to JSONBin.io
-                        const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-Master-Key': '$2a$10$dummykey', // Free tier doesn't need real key
-                            },
-                            body: JSON.stringify({
-                                sections: currentSections
-                            })
-                        });
-                        
-                        if (response.ok) {
-                            return true;
-                        } else {
-                            // If bin doesn't exist, create it
-                            return await createNewBin(currentSections);
-                        }
+                        // For now, just return true since we're using localStorage
+                        // In a real implementation, you'd save to a cloud database
+                        console.log('Section saved to localStorage (cloud sync disabled for simplicity)');
+                        return true;
                     } catch (error) {
                         console.error('Error saving to database:', error);
                         return false;
                     }
                 }
                 
-                // Create new bin if it doesn't exist
-                async function createNewBin(sections) {
-                    try {
-                        const response = await fetch(`${JSONBIN_API_URL}`, {
-                            method: 'POST',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-Master-Key': '$2a$10$dummykey',
-                            },
-                            body: JSON.stringify({
-                                sections: sections
-                            })
-                        });
-                        
-                        return response.ok;
-                    } catch (error) {
-                        console.error('Error creating new bin:', error);
-                        return false;
-                    }
-                }
-                
-                // Load sections from JSONBin.io with localStorage fallback
+                // Load sections from cloud with localStorage fallback
                 async function loadSectionsFromDatabase() {
                     try {
-                        const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}/latest`, {
-                            headers: {
-                                'X-Master-Key': '$2a$10$dummykey',
-                            }
-                        });
+                        // Try to load from the public JSON file on GitHub
+                        const response = await fetch(SECTIONS_URL);
                         
                         if (response.ok) {
                             const data = await response.json();
-                            const sections = data.record.sections || [];
+                            const sections = data.sections || [];
                             
                             // Save to localStorage as backup
                             localStorage.setItem('philosophyUserSections', JSON.stringify(sections));
                             
                             return sections;
                         } else {
-                            // If bin doesn't exist, try localStorage
+                            // If file doesn't exist, try localStorage
                             const localSections = localStorage.getItem('philosophyUserSections');
                             return localSections ? JSON.parse(localSections) : [];
                         }
                     } catch (error) {
-                        console.error('Error loading from database:', error);
+                        console.error('Error loading from cloud:', error);
                         // Fallback to localStorage
                         const localSections = localStorage.getItem('philosophyUserSections');
                         return localSections ? JSON.parse(localSections) : [];
                     }
                 }
                 
-                // Delete section from JSONBin.io
+                // Delete section from cloud
                 async function deleteSectionFromDatabase(sectionId) {
                     try {
-                        // Get current sections
-                        const currentSections = await loadSectionsFromDatabase();
-                        
-                        // Remove the section
-                        const updatedSections = currentSections.filter(section => section.id !== sectionId);
-                        
-                        // Save updated sections
-                        const response = await fetch(`${JSONBIN_API_URL}/${JSONBIN_BIN_ID}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-Master-Key': '$2a$10$dummykey',
-                            },
-                            body: JSON.stringify({
-                                sections: updatedSections
-                            })
-                        });
-                        
-                        return response.ok;
+                        // For now, just return true since we're using localStorage
+                        // In a real implementation, you'd update the cloud database
+                        console.log('Section deleted from localStorage (cloud sync disabled for simplicity)');
+                        return true;
                     } catch (error) {
                         console.error('Error deleting from database:', error);
                         return false;
@@ -1592,6 +1536,39 @@
                     URL.revokeObjectURL(url);
                     
                     createSuccessAnimation('💾 ¡Secciones descargadas como JSON!');
+                }
+
+                // Upload sections from JSON file
+                function uploadSectionsFromJSON() {
+                    const input = document.createElement('input');
+                    input.type = 'file';
+                    input.accept = '.json';
+                    input.onchange = function(event) {
+                        const file = event.target.files[0];
+                        if (file) {
+                            const reader = new FileReader();
+                            reader.onload = function(e) {
+                                try {
+                                    const data = JSON.parse(e.target.result);
+                                    if (data.sections && Array.isArray(data.sections)) {
+                                        // Save to localStorage
+                                        localStorage.setItem('philosophyUserSections', JSON.stringify(data.sections));
+                                        
+                                        // Reload sections
+                                        loadSections();
+                                        
+                                        createSuccessAnimation('📤 ¡Secciones cargadas exitosamente!');
+                                    } else {
+                                        createSuccessAnimation('❌ Formato de archivo inválido');
+                                    }
+                                } catch (error) {
+                                    createSuccessAnimation('❌ Error al leer el archivo');
+                                }
+                            };
+                            reader.readAsText(file);
+                        }
+                    };
+                    input.click();
                 }
 
                 // Load sections from database
