@@ -1454,20 +1454,21 @@ no,                 <div class="form-group">
                         
                         currentSections.push(newSection);
                         
-                        // Save to Firebase
-                        const response = await fetch(FIREBASE_URL, {
+                        // Save to JSONBin.io
+                        const response = await fetch(`${JSONBIN_API_URL}/b/${JSONBIN_BIN_ID}`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
+                                'X-Master-Key': JSONBIN_API_KEY
                             },
-                            body: JSON.stringify(currentSections)
+                            body: JSON.stringify({ sections: currentSections })
                         });
                         
                         if (response.ok) {
-                            console.log('Section saved to Firebase successfully!');
+                            console.log('Section saved to JSONBin.io successfully!');
                             return true;
                         } else {
-                            console.log('Failed to save to Firebase, but saved locally');
+                            console.log('Failed to save to JSONBin.io, but saved locally');
                             return false;
                         }
                     } catch (error) {
@@ -1477,23 +1478,28 @@ no,                 <div class="form-group">
                 }
                 
                 
-                // Load sections from Firebase with localStorage fallback
+                // Load sections from JSONBin.io with localStorage fallback
                 async function loadSectionsFromDatabase() {
                     try {
-                        const response = await fetch(FIREBASE_URL);
+                        const response = await fetch(`${JSONBIN_API_URL}/b/${JSONBIN_BIN_ID}`, {
+                            headers: {
+                                'X-Master-Key': JSONBIN_API_KEY
+                            }
+                        });
                         
                         if (response.ok) {
-                            const sections = await response.json();
+                            const data = await response.json();
+                            const sections = data.record?.sections || [];
                             
                             // Save to localStorage as backup
-                            localStorage.setItem('philosophyUserSections', JSON.stringify(sections || []));
+                            localStorage.setItem('philosophyUserSections', JSON.stringify(sections));
                             
-                            console.log('Loaded sections from Firebase:', (sections || []).length);
-                            return sections || [];
+                            console.log('Loaded sections from JSONBin.io:', sections.length);
+                            return sections;
                         } else {
-                            // If Firebase doesn't exist, try localStorage
+                            // If JSONBin.io doesn't work, try localStorage
                             const localSections = localStorage.getItem('philosophyUserSections');
-                            console.log('Firebase not available, using localStorage:', localSections ? JSON.parse(localSections).length : 0);
+                            console.log('JSONBin.io not available, using localStorage:', localSections ? JSON.parse(localSections).length : 0);
                             return localSections ? JSON.parse(localSections) : [];
                         }
                     } catch (error) {
@@ -1504,7 +1510,7 @@ no,                 <div class="form-group">
                     }
                 }
                 
-                // Delete section from Firebase
+                // Delete section from JSONBin.io
                 async function deleteSectionFromDatabase(sectionId) {
                     try {
                         // Get current sections
@@ -1514,15 +1520,16 @@ no,                 <div class="form-group">
                         const updatedSections = currentSections.filter(section => section.id !== sectionId);
                         
                         // Save updated sections
-                        const response = await fetch(FIREBASE_URL, {
+                        const response = await fetch(`${JSONBIN_API_URL}/b/${JSONBIN_BIN_ID}`, {
                             method: 'PUT',
                             headers: {
                                 'Content-Type': 'application/json',
+                                'X-Master-Key': JSONBIN_API_KEY
                             },
-                            body: JSON.stringify(updatedSections)
+                            body: JSON.stringify({ sections: updatedSections })
                         });
                         
-                        console.log('Section deleted from Firebase');
+                        console.log('Section deleted from JSONBin.io');
                         return response.ok;
                     } catch (error) {
                         console.error('Error deleting from database:', error);
