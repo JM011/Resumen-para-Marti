@@ -1307,7 +1307,7 @@ no,                 <div class="form-group">
 
 
                 // Save new section
-                saveSectionBtn.addEventListener('click', async function() {
+                saveSectionBtn.addEventListener('click', function() {
                     const catAnswer = catName.value.trim();
                     const emoji = sectionEmoji.value.trim() || '📝';
                     const title = sectionTitle.value.trim();
@@ -1360,7 +1360,13 @@ no,                 <div class="form-group">
                     newSection.scrollIntoView({ behavior: 'smooth' });
 
                     // Save to database
-                    const saved = await saveSectionToDatabase(emoji, title, content);
+                    saveSectionToDatabase(emoji, title, content).then(saved => {
+                        if (saved) {
+                            console.log('Section saved to cloud successfully!');
+                        } else {
+                            console.log('Section saved locally only');
+                        }
+                    });
                     
                     // Always save to localStorage as backup
                     const newSectionData = {
@@ -1437,111 +1443,121 @@ no,                 <div class="form-group">
                 const JSONBIN_API_KEY = '$2a$10$f1uhMReFgSg3NJ/rmBhFQuBUVEFOHhKJNlWDwmRkjtrec9PNhbSJO'; 
                 
                 // Save section to cloud database
-                async function saveSectionToDatabase(emoji, title, content) {
-                    try {
-                        // Get current sections
-                        const currentSections = await loadSectionsFromDatabase();
-                        
-                        // Add new section
-                        const newSection = {
-                            id: Date.now().toString(),
-                            emoji: emoji,
-                            title: title,
-                            content: content,
-                            timestamp: new Date().toISOString(),
-                            author: 'Marti'
-                        };
-                        
-                        currentSections.push(newSection);
-                        
-                        // Save to JSONBin.io
-                        const response = await fetch(`${JSONBIN_API_URL}/b/${JSONBIN_BIN_ID}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-Master-Key': JSONBIN_API_KEY
-                            },
-                            body: JSON.stringify({ sections: currentSections })
+                function saveSectionToDatabase(emoji, title, content) {
+                    return new Promise((resolve) => {
+                        // Get current sections first
+                        loadSectionsFromDatabase().then(currentSections => {
+                            // Add new section
+                            const newSection = {
+                                id: Date.now().toString(),
+                                emoji: emoji,
+                                title: title,
+                                content: content,
+                                timestamp: new Date().toISOString(),
+                                author: 'Marti'
+                            };
+                            
+                            currentSections.push(newSection);
+                            
+                            // Save to JSONBin.io using XMLHttpRequest
+                            let req = new XMLHttpRequest();
+                            
+                            req.onreadystatechange = () => {
+                                if (req.readyState == XMLHttpRequest.DONE) {
+                                    if (req.status === 200) {
+                                        console.log('Section saved to JSONBin.io successfully!');
+                                        console.log('Response:', req.responseText);
+                                        resolve(true);
+                                    } else {
+                                        console.log('Failed to save to JSONBin.io:', req.status, req.responseText);
+                                        resolve(false);
+                                    }
+                                }
+                            };
+                            
+                            req.open("PUT", `${JSONBIN_API_URL}/b/${JSONBIN_BIN_ID}`, true);
+                            req.setRequestHeader("Content-Type", "application/json");
+                            req.setRequestHeader("X-Master-Key", JSONBIN_API_KEY);
+                            req.send(JSON.stringify({ sections: currentSections }));
                         });
-                        
-                        if (response.ok) {
-                            console.log('Section saved to JSONBin.io successfully!');
-                            return true;
-                        } else {
-                            console.log('Failed to save to JSONBin.io, but saved locally');
-                            return false;
-                        }
-                    } catch (error) {
-                        console.error('Error saving to database:', error);
-                        return false;
-                    }
+                    });
                 }
                 
                 
                 // Load sections from JSONBin.io with localStorage fallback
-                async function loadSectionsFromDatabase() {
-                    try {
-                        const response = await fetch(`${JSONBIN_API_URL}/b/${JSONBIN_BIN_ID}`, {
-                            headers: {
-                                'X-Master-Key': JSONBIN_API_KEY
-                            }
-                        });
+                function loadSectionsFromDatabase() {
+                    return new Promise((resolve) => {
+                        let req = new XMLHttpRequest();
                         
-                        if (response.ok) {
-                            const data = await response.json();
-                            const sections = data.record?.sections || [];
-                            
-                            // Save to localStorage as backup
-                            localStorage.setItem('philosophyUserSections', JSON.stringify(sections));
-                            
-                            console.log('Loaded sections from JSONBin.io:', sections.length);
-                            return sections;
-                        } else {
-                            // If JSONBin.io doesn't work, try localStorage
-                            const localSections = localStorage.getItem('philosophyUserSections');
-                            console.log('JSONBin.io not available, using localStorage:', localSections ? JSON.parse(localSections).length : 0);
-                            return localSections ? JSON.parse(localSections) : [];
-                        }
-                    } catch (error) {
-                        console.error('Error loading from database:', error);
-                        // Fallback to localStorage
-                        const localSections = localStorage.getItem('philosophyUserSections');
-                        return localSections ? JSON.parse(localSections) : [];
-                    }
+                        req.onreadystatechange = () => {
+                            if (req.readyState == XMLHttpRequest.DONE) {
+                                if (req.status === 200) {
+                                    try {
+                                        const data = JSON.parse(req.responseText);
+                                        const sections = data.record?.sections || [];
+                                        
+                                        // Save to localStorage as backup
+                                        localStorage.setItem('philosophyUserSections', JSON.stringify(sections));
+                                        
+                                        console.log('Loaded sections from JSONBin.io:', sections.length);
+                                        resolve(sections);
+                                    } catch (error) {
+                                        console.error('Error parsing JSONBin.io response:', error);
+                                        // Fallback to localStorage
+                                        const localSections = localStorage.getItem('philosophyUserSections');
+                                        resolve(localSections ? JSON.parse(localSections) : []);
+                                    }
+                                } else {
+                                    console.log('JSONBin.io not available, using localStorage');
+                                    // If JSONBin.io doesn't work, try localStorage
+                                    const localSections = localStorage.getItem('philosophyUserSections');
+                                    resolve(localSections ? JSON.parse(localSections) : []);
+                                }
+                            }
+                        };
+                        
+                        req.open("GET", `${JSONBIN_API_URL}/b/${JSONBIN_BIN_ID}`, true);
+                        req.setRequestHeader("X-Master-Key", JSONBIN_API_KEY);
+                        req.send();
+                    });
                 }
                 
                 // Delete section from JSONBin.io
-                async function deleteSectionFromDatabase(sectionId) {
-                    try {
-                        // Get current sections
-                        const currentSections = await loadSectionsFromDatabase();
-                        
-                        // Remove the section
-                        const updatedSections = currentSections.filter(section => section.id !== sectionId);
-                        
-                        // Save updated sections
-                        const response = await fetch(`${JSONBIN_API_URL}/b/${JSONBIN_BIN_ID}`, {
-                            method: 'PUT',
-                            headers: {
-                                'Content-Type': 'application/json',
-                                'X-Master-Key': JSONBIN_API_KEY
-                            },
-                            body: JSON.stringify({ sections: updatedSections })
+                function deleteSectionFromDatabase(sectionId) {
+                    return new Promise((resolve) => {
+                        // Get current sections first
+                        loadSectionsFromDatabase().then(currentSections => {
+                            // Remove the section
+                            const updatedSections = currentSections.filter(section => section.id !== sectionId);
+                            
+                            // Save updated sections using XMLHttpRequest
+                            let req = new XMLHttpRequest();
+                            
+                            req.onreadystatechange = () => {
+                                if (req.readyState == XMLHttpRequest.DONE) {
+                                    if (req.status === 200) {
+                                        console.log('Section deleted from JSONBin.io successfully!');
+                                        console.log('Response:', req.responseText);
+                                        resolve(true);
+                                    } else {
+                                        console.log('Failed to delete from JSONBin.io:', req.status, req.responseText);
+                                        resolve(false);
+                                    }
+                                }
+                            };
+                            
+                            req.open("PUT", `${JSONBIN_API_URL}/b/${JSONBIN_BIN_ID}`, true);
+                            req.setRequestHeader("Content-Type", "application/json");
+                            req.setRequestHeader("X-Master-Key", JSONBIN_API_KEY);
+                            req.send(JSON.stringify({ sections: updatedSections }));
                         });
-                        
-                        console.log('Section deleted from JSONBin.io');
-                        return response.ok;
-                    } catch (error) {
-                        console.error('Error deleting from database:', error);
-                        return false;
-                    }
+                    });
                 }
                 
 
                 // Load sections from database
-                async function loadSections() {
-                    try {
-                        const sections = await loadSectionsFromDatabase();
+                function loadSections() {
+                    loadSectionsFromDatabase().then(sections => {
                         const addSectionContainer = document.querySelector('.add-section-container');
                         
                         // Only clear existing user sections if we have new sections to load
@@ -1566,11 +1582,11 @@ no,                 <div class="form-group">
                                 addSectionContainer.parentNode.insertBefore(newSection, addSectionContainer);
                             });
                         }
-                    } catch (error) {
+                    }).catch(error => {
                         console.error('Error loading sections:', error);
                         // Don't show error message on page load, just log it
                         console.log('Sections will be loaded from localStorage if available');
-                    }
+                    });
                 }
 
                 // Load saved sections on page load
@@ -1579,12 +1595,8 @@ no,                 <div class="form-group">
                 // Set up automatic sync (every 10 seconds)
                 function setupSimpleSync() {
                     // Check for updates every 10 seconds
-                    setInterval(async () => {
-                        try {
-                            await loadSections();
-                        } catch (error) {
-                            console.log('Sync check failed:', error);
-                        }
+                    setInterval(() => {
+                        loadSections();
                     }, 10000); // 10 seconds
                     
                     console.log('Cloud sync enabled - checking for updates every 10 seconds');
